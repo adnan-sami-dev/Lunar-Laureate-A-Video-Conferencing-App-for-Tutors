@@ -1,0 +1,42 @@
+import { SlCamrecorder } from "react-icons/sl";
+import { LuCalendarArrowUp } from "react-icons/lu";
+import { LuCalendarArrowDown } from "react-icons/lu";
+import { IoMdAdd } from "react-icons/io";
+import { HiOutlineHome } from "react-icons/hi2";
+
+import { IconType } from 'react-icons';
+
+export interface SidebarLink {
+  id: number;
+  label: string;
+  href: string;
+  icon: IconType; // ← The React Icon component type
+}
+
+export const sidebarLinks = [
+    {
+        label: 'Home',
+        icon: HiOutlineHome,
+        route: '/'
+    },
+    {
+        label: 'Upcoming',
+        icon: LuCalendarArrowDown,
+        route: '/upcoming'
+    },
+    {
+        label: 'Previous',
+        icon: LuCalendarArrowUp,
+        route: '/previous'
+    },
+    {
+        label: 'Recordings',
+        icon: SlCamrecorder,
+        route: '/recordings'
+    },
+    {
+        label: 'Personal Room',
+        icon: IoMdAdd,
+        route: '/personal-room'
+    },
+]
