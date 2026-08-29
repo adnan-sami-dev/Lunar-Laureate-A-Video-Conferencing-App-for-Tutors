@@ -39,16 +39,7 @@ const NavBar = () => {
 
       {/* Mobile Nav */}
 
-      {
-        isMobileNavOpen && (
-          <div className='w-full h-full'>            
-            <MobileNav closeMobileNav={closeMobileNav} />
-
-            {/* Mobile Nav Overlay */}
-            <div className='fixed z-10 inset-0 bg-black/40 backdrop-blur-md' onClick={toggleMobileNav} />
-          </div>
-        )
-      }
+      <MobileNav closeMobileNav={closeMobileNav} isMobileNavOpen={isMobileNavOpen} />
     </>
   )
 }
