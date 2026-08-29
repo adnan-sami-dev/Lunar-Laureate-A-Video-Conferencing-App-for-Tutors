@@ -23,20 +23,17 @@
   --color-text-active: var(--text-active);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #081c15;
-    --secondary-background: #333d29;
-    --primary-text: #d8f3dc;
-
-    --sidebar-hover: #656d4a;
-    --sidebar-active: #a4ac86;
-
-    --text-active: #111d13;
-  }
-}
-
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--primary-text);
+}
+
+/* Dark mode override when class is applied */
+html.dark {
+  --background: #081c15;
+  --secondary-background: #333d29;
+  --primary-text: #d8f3dc;
+  --sidebar-hover: #656d4a;
+  --sidebar-active: #a4ac86;
+  --text-active: #111d13;
 }

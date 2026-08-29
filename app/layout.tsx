@@ -21,7 +21,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       className={`${intelOneMono.className} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Restore theme BEFORE page renders */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('theme');
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  } else if (theme === 'light') {
+                    document.documentElement.classList.remove('dark');
+                  } else {
+                    // No saved preference - check system preference
+                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                      document.documentElement.classList.add('dark');
+                    }
+                  }
+                } catch (e) {
+                  // localStorage not available (e.g., in some browsers)
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

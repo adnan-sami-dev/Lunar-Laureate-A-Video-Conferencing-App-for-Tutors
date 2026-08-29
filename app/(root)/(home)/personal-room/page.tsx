@@ -1,8 +1,10 @@
-import React from 'react'
+
 
 const PersonalRoom = () => {
   return (
-    <div>PersonalRoom</div>
+    <section>
+      <h1 className='font-bold text-5xl'>Personal Room</h1>
+    </section>
   )
 }
 

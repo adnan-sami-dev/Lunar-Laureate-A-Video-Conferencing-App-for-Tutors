@@ -1,8 +1,10 @@
-import React from 'react'
+
 
 const Upcoming = () => {
   return (
-    <div>Upcoming</div>
+    <section>
+      <h1 className='font-bold text-5xl'>Upcoming</h1>
+    </section>
   )
 }
 

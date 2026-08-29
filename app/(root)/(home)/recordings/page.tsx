@@ -1,8 +1,10 @@
-import React from 'react'
+
 
 const Recordings = () => {
   return (
-    <div>Recordings</div>
+    <section>
+      <h1 className='font-bold text-5xl'>Recordings</h1>
+    </section>
   )
 }
 
