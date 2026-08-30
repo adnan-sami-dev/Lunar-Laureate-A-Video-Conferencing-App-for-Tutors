@@ -13,7 +13,7 @@ interface MobileNavProps {
 const MobileNav = ({isMobileNavOpen, closeMobileNav} : MobileNavProps) => {
   const pathname = usePathname()
 
-  // ✅ Prevent body scroll when open
+  // Prevent body scroll when open
   useEffect(() => {
     if (isMobileNavOpen) {
       document.body.style.overflow = 'hidden';
