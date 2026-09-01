@@ -1,5 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Intel_One_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -18,8 +19,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+
   return (
-    <ClerkProvider>
       <html
         lang="en"
         className={`${intelOneMono.className} h-full antialiased`}
@@ -27,32 +28,35 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <head>
           {/* Restore theme BEFORE page renders */}
-          <script
+          <Script
+            id="theme-restore"
+            strategy="beforeInteractive"
             dangerouslySetInnerHTML={{
               __html: `
                 (function() {
                   try {
                     const theme = localStorage.getItem('theme');
+                    const html = document.documentElement;
                     if (theme === 'dark') {
-                      document.documentElement.classList.add('dark');
+                      html.classList.add('dark');
                     } else if (theme === 'light') {
-                      document.documentElement.classList.remove('dark');
-                    } else {
-                      // No saved preference - check system preference
-                      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                        document.documentElement.classList.add('dark');
-                      }
+                      html.classList.remove('dark');
+                    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                      html.classList.add('dark');
                     }
                   } catch (e) {
-                    // localStorage not available (e.g., in some browsers)
+                    // localStorage not available
                   }
                 })();
               `,
             }}
           />
         </head>
-        <body className="min-h-full flex flex-col">{children}</body>
+        <body className="min-h-full flex flex-col">
+              <ClerkProvider>
+                {children}
+              </ClerkProvider>
+        </body>
       </html>
-    </ClerkProvider>
   );
 }

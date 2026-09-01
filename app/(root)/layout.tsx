@@ -4,13 +4,18 @@
 // wraps every page - anything put here appears on all pages (eg. NavBar, Footer)
 
 import { ReactNode } from "react"
+import { redirect } from "next/navigation"
+import { auth } from "@clerk/nextjs/server";
 
-const RootLayout = ({children}: {children: ReactNode}) => {
+export default async function RootLayout ({children}: {children: ReactNode}) {
+
+  const clerkAuth = await auth()
+  // If no active session/user, redirect to sign-in
+  if (!clerkAuth.userId) redirect('/sign-in')
+
   return (
     <main>
         {children}
     </main>
   )
 }
-
-export default RootLayout

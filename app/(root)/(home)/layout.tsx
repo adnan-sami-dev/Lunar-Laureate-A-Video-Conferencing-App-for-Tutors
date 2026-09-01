@@ -1,14 +1,20 @@
-'use client'
 
 import { ReactNode } from "react"
 import NavBar from "@/components/NavBar"
 import SideBar from "@/components/SideBar"
+import { redirect } from "next/navigation"
+import { auth } from "@clerk/nextjs/server";
 
-const HomeLayout = ({children}: {children: ReactNode}) => {
-  return (
+const HomeLayout = async ({children}: {children: ReactNode}) => {
+
+    const clerkAuth = await auth()
+    // If no active session/user, redirect to sign-in
+    if (!clerkAuth.userId) redirect('/sign-in')
+
+    return (
     <main className='relative'>
-        <NavBar />
- 
+        <NavBar />ap
+
         <div className='flex'>
             <SideBar />
 
@@ -20,7 +26,7 @@ const HomeLayout = ({children}: {children: ReactNode}) => {
             </section>
         </div>
     </main>
-  )
+    )
 }
 
 export default HomeLayout
