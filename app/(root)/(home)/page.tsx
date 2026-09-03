@@ -1,10 +1,19 @@
+'use client'
 
 import Image from "next/image"
 import image from '@/public/terracota.jpg'
+import fallbackImg from '@/public/fall.jpg'
 import Link from "next/link"
+import { useState } from "react"
 
 const Home = () => {
   const imageLink = 'https://www.pexels.com/photo/stunning-terraced-rice-fields-in-lush-mountain-valley-28778307/' 
+
+  const [imgSrc, setImgSrc] = useState(image)
+
+  const handleImageError = () => {
+    setImgSrc(fallbackImg)
+  }
 
   return (
     <section>
@@ -19,7 +28,7 @@ const Home = () => {
           see the picture
         </Link>
 
-        <Image src={image} alt='banner image' className='object-cover opacity-80' fill />
+        <Image src={imgSrc} alt='banner image' className='object-cover opacity-80' fill onError={handleImageError}/>
       </div>
 
     </section>
