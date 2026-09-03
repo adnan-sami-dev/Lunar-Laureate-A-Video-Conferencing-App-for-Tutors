@@ -9,6 +9,7 @@
   --sidebar-active: #4f772d;
 
   --text-active: #f0ead2;
+
 }
 
 @theme inline {
@@ -36,4 +37,5 @@ html.dark {
   --sidebar-hover: #656d4a;
   --sidebar-active: #a4ac86;
   --text-active: #111d13;
+
 }

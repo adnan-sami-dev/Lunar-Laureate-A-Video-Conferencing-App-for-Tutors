@@ -3,7 +3,7 @@
 import { SignUp } from '@clerk/react'
 
 
-const page = () => {
+const SignUpPage = () => {
   return (
     <div className='flex items-center justify-center h-screen font-medium text-2xl'>
         <SignUp
@@ -23,4 +23,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SignUpPage

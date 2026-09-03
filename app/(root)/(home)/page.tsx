@@ -1,9 +1,27 @@
 
+import Image from "next/image"
+import image from '@/public/terracota.jpg'
+import Link from "next/link"
 
 const Home = () => {
+  const imageLink = 'https://www.pexels.com/photo/stunning-terraced-rice-fields-in-lush-mountain-valley-28778307/' 
+
   return (
     <section>
-      <h1 className='font-bold text-5xl'>Home</h1>
+      {/* Hero */}
+      <div className='relative overflow-hidden rounded-2xl h-75 flex items-center justify-center w-full'>
+        <span className='absolute flex items-center justify-center text-center text-sm lg:text-md mx-5 z-5 font-medium text-white backdrop-blur-xs p-2 rounded-full'>
+          "The journey of a thousand miles starts with a single step."
+        </span>
+
+        <Link href={imageLink}
+         className='absolute bottom-0 right-0 mb-2 mr-3 text-black/50 hover:text-black font-medium text-xs z-5'>
+          see the picture
+        </Link>
+
+        <Image src={image} alt='banner image' className='object-cover opacity-80' fill />
+      </div>
+
     </section>
   )
 }
