@@ -27,7 +27,7 @@ const NavBar = () => {
     const isDarkMode = document.documentElement.classList.contains('dark');
     setIsDark(isDarkMode);
 
-    // ✅ Listen for theme changes (in case the toggle is clicked elsewhere)
+    // Listen for theme changes (in case the toggle is clicked elsewhere)
     const observer = new MutationObserver(() => {
       const isDarkMode = document.documentElement.classList.contains('dark');
       setIsDark(isDarkMode);

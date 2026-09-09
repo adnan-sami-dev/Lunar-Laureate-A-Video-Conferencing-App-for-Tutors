@@ -7,6 +7,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { RxExternalLink } from "react-icons/rx";
 import { IoMdAdd } from "react-icons/io";
+import { TbUserPlus } from "react-icons/tb";
 
 const Home = () => {
   const firstImgLink = 'https://www.pexels.com/photo/stunning-terraced-rice-fields-in-lush-mountain-valley-28778307/' 
@@ -35,25 +36,33 @@ const Home = () => {
       </div>
 
       <div className='flex md:flex-row flex-col w-full gap-10 mt-10'>
+
         <div className='rounded-2xl flex items-center flex-col justify-center md:w-1/2 w-full 
           bg-upcoming-meeting-bg h-75 gap-2 cursor-pointer hover:bg-upcoming-meeting-bg-hover transition-colors duration-300 ease-in-out'>
+
           <span className='text-sm'>Next Meeting at</span>
           <span className='text-5xl font-bold'>
             10:15 AM
           </span>
           <span className='text-xl font-medium'>Thursday, Aug 25</span>
+
         </div>
+
         <div className='flex flex-col md:w-1/2 w-full gap-5 font-bold h-75'>
+
           <div className='bg-create-join-buttons h-1/2 rounded-2xl flex items-center justify-center 
             cursor-pointer hover:bg-create-join-buttons-hover transition-colors duration-300 ease-in-out'>
             <IoMdAdd size={24} /> 
             <span className='ml-2'>Create a Meeting</span>
           </div>
+
           <div className='bg-create-join-buttons h-1/2 rounded-2xl flex items-center justify-center 
             cursor-pointer hover:bg-create-join-buttons-hover transition-colors duration-300 ease-in-out'>
-            Join a Meeting
+            <TbUserPlus size={24} />
+            <span className='ml-2'>Join a Meeting</span>
           </div>
         </div>
+
       </div>
 
     </section>
