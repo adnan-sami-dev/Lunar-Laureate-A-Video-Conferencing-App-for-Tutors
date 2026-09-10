@@ -1,8 +1,11 @@
-import React from 'react'
+
+import { LuLoaderCircle } from "react-icons/lu";
 
 const Loader = () => {
   return (
-    <div>Loader</div>
+    <div className="flex items-center justify-center w-full h-screen">
+      <LuLoaderCircle size={50} />
+    </div>
   )
 }
 

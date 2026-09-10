@@ -6,6 +6,7 @@
 import { ReactNode } from "react"
 import { redirect } from "next/navigation"
 import { auth } from "@clerk/nextjs/server";
+import StreamVideoProvider from "../../providers/StreamClientProvider";
 
 export default async function RootLayout ({children}: {children: ReactNode}) {
 
@@ -15,7 +16,9 @@ export default async function RootLayout ({children}: {children: ReactNode}) {
 
   return (
     <main>
+      <StreamVideoProvider>
         {children}
+      </StreamVideoProvider>
     </main>
   )
 }
