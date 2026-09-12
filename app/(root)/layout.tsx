@@ -16,6 +16,7 @@ export default async function RootLayout ({children}: {children: ReactNode}) {
 
   return (
     <main>
+      {/* wrapping the app with access to the shared stream video client */}
       <StreamVideoProvider>
         {children}
       </StreamVideoProvider>
