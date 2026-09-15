@@ -1,3 +1,5 @@
+'use client'
+
 import { tokenProvider } from "@/actions/stream.actions"
 import { useUser } from "@clerk/react"
 import { StreamCall, StreamVideo, StreamVideoClient, User  } from "@stream-io/video-react-sdk"
@@ -21,7 +23,7 @@ const StreamVideoProvider = ({children} : {children : ReactNode}) => {
         if (!user || !isLoaded) return;
         if (!apiKey) throw new Error('Stream API Key missing');
 
-        const client = new StreamVideoClient({
+        const client = StreamVideoClient.getOrCreateInstance({
             apiKey,
             user: {
                 id: user?.id,

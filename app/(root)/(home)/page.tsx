@@ -8,6 +8,7 @@ import { useState } from "react"
 import { RxExternalLink } from "react-icons/rx";
 import { IoMdAdd } from "react-icons/io";
 import { TbUserPlus } from "react-icons/tb";
+import {useMeetingActions} from "@/hooks/useMeetingActions"
 
 const Home = () => {
   const firstImgLink = 'https://www.pexels.com/photo/stunning-terraced-rice-fields-in-lush-mountain-valley-28778307/' 
@@ -17,6 +18,7 @@ const Home = () => {
 
   const [bannerImg] = useState(bannerImgTwo)
   const [bannerImgLink] = useState(secondImgLink)
+  const {createMeeting} = useMeetingActions()
 
 
   return (
@@ -51,7 +53,8 @@ const Home = () => {
         <div className='flex flex-col md:w-1/2 w-full gap-5 font-bold h-75'>
 
           <div className='bg-create-join-buttons h-1/2 rounded-2xl flex items-center justify-center 
-            cursor-pointer hover:bg-create-join-buttons-hover transition-colors duration-300 ease-in-out'>
+            cursor-pointer hover:bg-create-join-buttons-hover transition-colors duration-300 ease-in-out'
+            onClick={createMeeting}>
             <IoMdAdd size={24} /> 
             <span className='ml-2'>Create a Meeting</span>
           </div>

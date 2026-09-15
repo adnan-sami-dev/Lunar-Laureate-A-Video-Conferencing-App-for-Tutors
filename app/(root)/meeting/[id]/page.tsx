@@ -1,9 +1,18 @@
+'use client'
+
+import { useParams } from 'next/navigation'
+
+const MeetingPage = () => {
+  const {id} = useParams()
 
 
-const Meeting = ({params}: {params: {id:string}}) => {
   return (
-    <div>Meeting Room: #{params.id}</div>
+    <main>
+      <div>
+        Meeting ID : {id}
+      </div>
+    </main>
   )
 }
 
-export default Meeting
+export default MeetingPage
