@@ -1,7 +1,7 @@
 'use client'
 
 /*
-    get shared clientg
+    get shared client
     create a unique call ID
     create a local reference to the call
     get or create the call using Stream's servers
