@@ -10,6 +10,7 @@ import { useGetCallById } from '@/hooks/useGetCallById'
 
 const MeetingPage = () => {
   const {id} = useParams()
+  const idString = String(id)
 
   // why do we need current user ?
   const {user, isLoaded} = useUser()
@@ -17,7 +18,15 @@ const MeetingPage = () => {
   // state for updating whether meeting has been set up with audio / video or not
   const [isSetupDone, setIsSetupDone] = useState(false)
 
-  const call = useGetCallById(String(id))
+  const { call, isCallLoading, error } = useGetCallById(idString)
+
+  if (isCallLoading) {
+    return <main className="h-screen w-full">Loading call...</main>
+  }
+
+  if (error || !call) {
+    return <main className="h-screen w-full">Unable to load call.</main>
+  }
 
   return (
     <main className="h-screen w-full">
