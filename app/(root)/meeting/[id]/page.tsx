@@ -33,7 +33,7 @@ const MeetingPage = () => {
       <StreamCall call={call}>
         <StreamTheme>
           {
-            isSetupDone? <MeetingRoom /> : <MeetingSetup />
+            isSetupDone? <MeetingRoom /> : <MeetingSetup setIsSetupDone = {setIsSetupDone}/>
           }
         </StreamTheme>
       </StreamCall>

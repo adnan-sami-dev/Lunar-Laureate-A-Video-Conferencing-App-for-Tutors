@@ -8,10 +8,10 @@ import {
 } from '@stream-io/video-react-sdk'
 import { useEffect, useState } from 'react'
 
-const MeetingSetup = () => {
+const MeetingSetup = ({setIsSetupDone} : {setIsSetupDone : (setupDone: boolean) => void}) => {
   const call = useCall()
   const [isVideoAudioEnabled, setIsVideoAudioEnabled] = useState(true)
-  
+
   const { useCameraState, useMicrophoneState } = useCallStateHooks()
   const { 
     hasBrowserPermission: hasCamPermission,
@@ -52,11 +52,11 @@ const MeetingSetup = () => {
   }
 
   return (
-    <div className='flex h-screen w-full flex-col items-center justify-center gap-3 text-primary-text'>
+    <div className='flex h-screen w-full flex-col items-center justify-center gap-3 text-white'>
       <h1 className='text-2xl font-bold'>Setup</h1>
       <VideoPreview />
       <div className='flex h-16 items-center justify-center gap-3'>
-        <label className='flex items-center justify-center gap-2 font-medium'>
+        <label className='flex items-center justify-center gap-2 font-medium text-primary-text'>
           <input 
             type='checkbox'
             checked={isVideoAudioEnabled}
@@ -67,7 +67,13 @@ const MeetingSetup = () => {
         <DeviceSettings />
       </div>
 
-      <button className='flex items-center text-sm justify-center text-primary-text border-primary-text border-2 bg-sidebar-hover hover:bg-secondary-background rounded-2xl py-2 px-3 cursor-pointer'>
+      <button className='flex items-center text-sm justify-center text-primary-text font-bold border-primary-text border-2 
+      bg-sidebar-hover hover:bg-secondary-background rounded-2xl py-2 px-3 cursor-pointer'
+      onClick = {() => {
+        call.join()
+        setIsSetupDone(true)
+      }}
+      >
         Join Meeting
       </button>
     </div>
