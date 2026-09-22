@@ -14,11 +14,9 @@ const MeetingRoom = () => {
     switch (layout) {
       case 'grid' :
         return <PaginatedGridLayout />
-        break
       
       case 'speaker-right' :
         return <SpeakerLayout participantsBarPosition={'left'} />
-        break
 
       default :
         return <SpeakerLayout participantsBarPosition={'right'} />
@@ -26,7 +24,7 @@ const MeetingRoom = () => {
   }
   
   return (
-    <section className='relative h-screen w-full overflow-hidden pt-4 text-white'>
+    <section className='relative h-screen w-full overflow-hidden pt-4 text-white bg-black'>
 
       {/* layout section */}
       <div className='relative flex size-full items-center justify-center'>
@@ -35,8 +33,8 @@ const MeetingRoom = () => {
           <CallLayout />
         </div>
 
-        {/* participant show button */}
-        <div   className={`ml-2 transition-all duration-300
+        {/* participant show */}
+        <div   className={`ml-2 transition-all duration-300 text-white absolute top-21.5
                           ${showParticipants 
                             ? 'block h-[calc(100vh-86px)]' 
                             : 'hidden'
@@ -44,6 +42,12 @@ const MeetingRoom = () => {
         `}>
           <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
+
+        <button className='absolute top-0 flex items-center justify-center text-white gap-2 bg-gray-700 px-3 py-2
+        rounded-2xl border-2 border-primary-text text-xs cursor-pointer transition-colors duration-300 hover:bg-sidebar-hover'
+          onClick={() => setShowParticipants(!showParticipants)}>
+            show participants
+        </button>
       </div>
 
       {/* call controls */}
