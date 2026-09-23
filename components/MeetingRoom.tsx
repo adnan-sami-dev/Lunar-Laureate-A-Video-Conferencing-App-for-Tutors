@@ -3,6 +3,7 @@
 import { CallControls, CallParticipantsList, PaginatedGridLayout, SpeakerLayout } from "@stream-io/video-react-sdk"
 import { useState } from "react"
 import ResponsiveCallControls from "./ResponsiveCallControls"
+import Dropdown from "./Dropdown"
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right'
 
@@ -34,7 +35,7 @@ const MeetingRoom = () => {
         </div>
 
         {/* participant show */}
-        <div   className={`ml-2 transition-all duration-300 text-white absolute top-21.5
+        <div   className={`ml-2 transition-all duration-300 text-white
                           ${showParticipants 
                             ? 'block h-[calc(100vh-86px)]' 
                             : 'hidden'
@@ -43,16 +44,20 @@ const MeetingRoom = () => {
           <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
 
-        <button className='absolute top-0 flex items-center justify-center text-white gap-2 bg-gray-700 px-3 py-2
-        rounded-2xl border-2 border-primary-text text-xs cursor-pointer transition-colors duration-300 hover:bg-sidebar-hover'
-          onClick={() => setShowParticipants(!showParticipants)}>
-            show participants
-        </button>
+        <div className='absolute top-0 flex flex-row items-center justify-center gap-3'>
+          <button className='flex items-center justify-center text-white gap-2 bg-gray-700 px-3 py-2
+          rounded-2xl border-2 border-primary-text text-xs cursor-pointer transition-colors duration-300 hover:bg-sidebar-hover'
+            onClick={() => setShowParticipants(!showParticipants)}>
+              show participants
+          </button>
+
+          <Dropdown />
+        </div>
       </div>
 
       {/* call controls */}
       <div className='absolute bottom-0 left-0 right-0 z-20'>
-        <ResponsiveCallControls />
+          <ResponsiveCallControls />
       </div>
 
     </section>
