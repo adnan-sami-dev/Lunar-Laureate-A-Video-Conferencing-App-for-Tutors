@@ -1,6 +1,30 @@
+/**
+ * MEETING ROOM — END/LEAVE STATE CHEAT SHEET
+ *
+ * Why the toast logic looks the way it does:
+ *
+ * 1. Two things can end a user's session:
+ *      - The user leaves or ends the call  -> onLeave fires
+ *      - The owner ends it for everyone    -> call.ended fires
+ *
+ * 2. Both can fire at nearly the same time, so we DON'T trust the event
+ *    to tell us which one happened. We let either event fire a single
+ *    handler, then read the truth from the call itself.
+ *
+ * 3. SOURCE OF TRUTH:
+ *      call.state.endedAt  -> truthy = call was ended for everyone
+ *                          -> falsy  = user just left
+ *
+ * 4. Rule of thumb for real-time apps:
+ *      Events are triggers. State is truth.
+ *      Never derive meaning from which event fired first.
+ *
+ * 5. Also: the toast must live in MeetingRoom (not in ResponsiveCallControls)
+ *    because ResponsiveCallControls unmounts when callingState becomes LEFT,
+ *    taking any local state with it.
+ */
 
-
-import { useCall, CallControls, CallParticipantsList, PaginatedGridLayout, SpeakerLayout, useCallStateHooks, CallingState } from "@stream-io/video-react-sdk"
+import { useCall, CallParticipantsList, PaginatedGridLayout, SpeakerLayout, useCallStateHooks, CallingState } from "@stream-io/video-react-sdk"
 import { useState, useEffect } from "react"
 import ResponsiveCallControls from "./ResponsiveCallControls"
 import Dropdown from "./Dropdown"

@@ -21,8 +21,8 @@ const BackToHomeToast = ({ open, message = 'Call left' }: BackToHomeToastProps) 
     <div className="fixed bottom-24 left-1/2 z-50 -translate-x-1/2">
       <div className="flex flex-col items-center gap-1 rounded-2xl border-2
                       border-primary-text bg-gray-800 px-5 py-3 text-white shadow-lg">
-        <span className="text-sm font-medium">{message}</span>
-        <span className="text-xs text-gray-400">Redirecting to home…</span>
+        <span className="text-lg font-medium">{message}</span>
+        <span className="text-sm text-gray-400">Redirecting to home…</span>
       </div>
     </div>
   )

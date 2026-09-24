@@ -4,7 +4,7 @@ import Image from "next/image"
 import bannerImgOne from '@/public/terracota.jpg'
 import bannerImgTwo from '@/public/fall.jpg'
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { RxExternalLink } from "react-icons/rx";
 import { IoMdAdd } from "react-icons/io";
 import { TbUserPlus } from "react-icons/tb";
