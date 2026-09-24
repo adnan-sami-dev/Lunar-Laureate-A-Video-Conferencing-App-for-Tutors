@@ -1,15 +1,44 @@
 
 
-import { CallControls, CallParticipantsList, PaginatedGridLayout, SpeakerLayout } from "@stream-io/video-react-sdk"
-import { useState } from "react"
+import { useCall, CallControls, CallParticipantsList, PaginatedGridLayout, SpeakerLayout, useCallStateHooks, CallingState } from "@stream-io/video-react-sdk"
+import { useState, useEffect } from "react"
 import ResponsiveCallControls from "./ResponsiveCallControls"
 import Dropdown from "./Dropdown"
+import DropdownItem from "./DropdownItem"
+import BackToHomeToast from "./BackToHomeToast"
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right'
 
 const MeetingRoom = () => {
   const [layout, setLayout] = useState<CallLayoutType>('speaker-left')
   const [showParticipants, setShowParticipants] = useState(false)
+
+  const { useCallCallingState } = useCallStateHooks();
+  const callingState = useCallCallingState();
+
+  const call = useCall()
+
+  const [homeToast, setHomeToast] = useState<{ open: boolean; message: string }>({
+    open: false,
+    message: '',
+  })
+
+  // Single handler — reads truth from call.state.endedAt
+  const showHomeToast = () => {
+    const ended = !!call?.state.endedAt
+    setHomeToast({
+      open: true,
+      message: ended ? 'Call ended' : 'Call left',
+    })
+  }
+
+  // Remote end (owner ended it while you were in)
+  useEffect(() => {
+    if (!call) return
+    const unsub = call.on('call.ended', showHomeToast)
+    return () => unsub()
+  }, [call])
+
 
   const CallLayout = () => {
     switch (layout) {
@@ -34,7 +63,7 @@ const MeetingRoom = () => {
           <CallLayout />
         </div>
 
-        {/* participant show */}
+        {/* participant show div */}
         <div   className={`ml-2 transition-all duration-300 text-white
                           ${showParticipants 
                             ? 'block h-[calc(100vh-86px)]' 
@@ -45,20 +74,36 @@ const MeetingRoom = () => {
         </div>
 
         <div className='absolute top-0 flex flex-row items-center justify-center gap-3'>
+
+          {/* participants show button */}
           <button className='flex items-center justify-center text-white gap-2 bg-gray-700 px-3 py-2
           rounded-2xl border-2 border-primary-text text-xs cursor-pointer transition-colors duration-300 hover:bg-sidebar-hover'
             onClick={() => setShowParticipants(!showParticipants)}>
-              show participants
+              participants
           </button>
 
-          <Dropdown />
+          {/* Layout Menu */}
+          <Dropdown trigger='layout'>
+           <DropdownItem onClick={() => setLayout('grid')}>grid</DropdownItem>
+           <DropdownItem onClick={() => setLayout('speaker-right')}>speaker right</DropdownItem>
+           <DropdownItem onClick={() => setLayout('speaker-left')}>speaker left</DropdownItem>
+          </Dropdown>
+
         </div>
       </div>
 
       {/* call controls */}
-      <div className='absolute bottom-0 left-0 right-0 z-20'>
-          <ResponsiveCallControls />
-      </div>
+      {callingState != CallingState.LEFT && (
+        <div className='absolute bottom-0 left-0 right-0 z-20'>
+          <ResponsiveCallControls onCallEnded={showHomeToast} />
+        </div>
+      )}
+
+      {/* Back to Home Toast */}
+      <BackToHomeToast
+        open={homeToast.open}
+        message={homeToast.message}
+      />
 
     </section>
   )
