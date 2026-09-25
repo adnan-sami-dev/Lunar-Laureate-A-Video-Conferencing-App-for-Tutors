@@ -30,12 +30,15 @@ import ResponsiveCallControls from "./ResponsiveCallControls"
 import Dropdown from "./Dropdown"
 import DropdownItem from "./DropdownItem"
 import BackToHomeToast from "./BackToHomeToast"
+import useActiveCalls from "@/hooks/useActiveCalls"
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right'
 
 const MeetingRoom = () => {
   const [layout, setLayout] = useState<CallLayoutType>('speaker-left')
   const [showParticipants, setShowParticipants] = useState(false)
+
+  const {activeCall, isLoading} = useActiveCalls()
 
   const { useCallCallingState } = useCallStateHooks();
   const callingState = useCallCallingState();
