@@ -9,6 +9,9 @@ import { RxExternalLink } from "react-icons/rx";
 import { IoMdAdd } from "react-icons/io";
 import { TbUserPlus } from "react-icons/tb";
 import {useMeetingActions} from "@/hooks/useMeetingActions"
+import ActiveCallBanner from "@/components/ActiveCallBanner"
+import useActiveCalls from "@/hooks/useActiveCalls"
+import { useRouter } from 'next/navigation'
 
 const Home = () => {
   const firstImgLink = 'https://www.pexels.com/photo/stunning-terraced-rice-fields-in-lush-mountain-valley-28778307/' 
@@ -20,6 +23,17 @@ const Home = () => {
   const [bannerImgLink] = useState(secondImgLink)
   const {createMeeting} = useMeetingActions()
 
+
+  // fetching active call (created by user) if any
+  const { activeCall} = useActiveCalls()
+  console.log(activeCall)
+
+  const router = useRouter()
+
+  const handleJoinCall = (callId: string) => {
+    // Navigate to your meeting room route
+    router.push(`/meeting/${callId}`)
+  }
 
   return (
     <section>
@@ -68,6 +82,10 @@ const Home = () => {
 
       </div>
 
+      {/* AActive Call Banner */}
+      <div>
+        {activeCall && <ActiveCallBanner call={activeCall} onJoin={handleJoinCall}/>}
+      </div>
     </section>
   )
 }

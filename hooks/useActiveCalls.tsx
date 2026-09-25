@@ -12,19 +12,25 @@
 */
 
 
-import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk"
+import { Call, useConnectedUser, useStreamVideoClient } from "@stream-io/video-react-sdk"
 import { useState, useEffect } from "react"
 
 const useActiveCalls = () => {
     const [activeCall, setActiveCall] = useState<Call | null>(null)
     const [isLoading, setIsLoading] = useState(true)
 
-    const client = useStreamVideoClient()           //
-    const userId = client?.streamClient.user?.id    // optional chaining to prevent crashes while user attaches
+    const client = useStreamVideoClient()           
+
+    const user = useConnectedUser()
+    const userId = user?.id
+
+    console.log('client:', !!client, 'userId:', userId)
 
     useEffect (() => {
+        console.log('effect running. client:', !!client, 'userId:', userId)
         if (!client || !userId) return              // if client or user doesn't exist or can't be retrieved, 
                                                     // don't attempt to query active calls from Stream
+
 
         let cancelled = false
 
@@ -34,8 +40,8 @@ const useActiveCalls = () => {
                 const {calls} = await client.queryCalls(
                     {
                         filter_conditions: {
-                            members: {$in: [userId]},
-                            ongoing: true
+                            created_by_user_id: userId,
+                            ongoing: true 
                         },
                         sort: [{
                             field: 'created_at',
@@ -45,11 +51,13 @@ const useActiveCalls = () => {
                         watch: true
                     }
                 )
+                console.log('query result:', calls.length, calls)
                 
                 if (!cancelled) {
                     setActiveCall(calls[0] ?? null)
                     setIsLoading(false)
                 }
+
 
             } catch(err) {
                 console.log('Failed to query active call: ', err)

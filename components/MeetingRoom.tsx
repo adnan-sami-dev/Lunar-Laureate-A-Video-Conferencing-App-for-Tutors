@@ -38,8 +38,6 @@ const MeetingRoom = () => {
   const [layout, setLayout] = useState<CallLayoutType>('speaker-left')
   const [showParticipants, setShowParticipants] = useState(false)
 
-  const {activeCall, isLoading} = useActiveCalls()
-
   const { useCallCallingState } = useCallStateHooks();
   const callingState = useCallCallingState();
 
@@ -69,17 +67,17 @@ const MeetingRoom = () => {
 
   const CallLayout = () => {
     switch (layout) {
-      case 'grid' :
+      case 'grid':
         return <PaginatedGridLayout />
-      
-      case 'speaker-right' :
+
+      case 'speaker-right':
         return <SpeakerLayout participantsBarPosition={'left'} />
 
-      default :
+      default:
         return <SpeakerLayout participantsBarPosition={'right'} />
     }
   }
-  
+
   return (
     <section className='relative h-screen w-full overflow-hidden pt-4 text-white bg-black'>
 
@@ -91,11 +89,11 @@ const MeetingRoom = () => {
         </div>
 
         {/* participant show div */}
-        <div   className={`ml-2 transition-all duration-300 text-white
-                          ${showParticipants 
-                            ? 'block h-[calc(100vh-86px)]' 
-                            : 'hidden'
-                          }
+        <div className={`ml-2 transition-all duration-300 text-white
+                          ${showParticipants
+            ? 'block h-[calc(100vh-86px)]'
+            : 'hidden'
+          }
         `}>
           <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
@@ -106,14 +104,14 @@ const MeetingRoom = () => {
           <button className='flex items-center justify-center text-white gap-2 bg-gray-700 px-3 py-2
           rounded-2xl border-2 border-primary-text text-xs cursor-pointer transition-colors duration-300 hover:bg-sidebar-hover'
             onClick={() => setShowParticipants(!showParticipants)}>
-              participants
+            participants
           </button>
 
           {/* Layout Menu */}
           <Dropdown trigger='layout'>
-           <DropdownItem onClick={() => setLayout('grid')}>grid</DropdownItem>
-           <DropdownItem onClick={() => setLayout('speaker-right')}>speaker right</DropdownItem>
-           <DropdownItem onClick={() => setLayout('speaker-left')}>speaker left</DropdownItem>
+            <DropdownItem onClick={() => setLayout('grid')}>grid</DropdownItem>
+            <DropdownItem onClick={() => setLayout('speaker-right')}>speaker right</DropdownItem>
+            <DropdownItem onClick={() => setLayout('speaker-left')}>speaker left</DropdownItem>
           </Dropdown>
 
         </div>
