@@ -53,14 +53,24 @@ const Home = () => {
 
       <div className='flex md:flex-row flex-col w-full gap-10 mt-10'>
 
-        <div className='rounded-2xl flex items-center flex-col justify-center md:w-1/2 w-full 
-          bg-upcoming-meeting-bg h-75 gap-2 cursor-pointer hover:bg-upcoming-meeting-bg-hover transition-colors duration-300 ease-in-out'>
+        <div className='relative rounded-2xl flex items-center flex-col justify-center md:w-1/2 w-full 
+          bg-upcoming-meeting-bg h-75 gap-2 ease-in-out'>
 
+          {/* Display for Upcoming Meeting, if any */}
           <span className='text-sm'>Next Meeting at</span>
           <span className='text-5xl font-bold'>
             10:15 AM
           </span>
           <span className='text-xl font-medium'>Thursday, Aug 25</span>
+
+          {/* Schedule a Meeting */}
+          <div className='absolute bottom-0 mb-2'>
+            <button className='bg-black/30 text-amber-50 px-4 py-2 font-bold text-sm cursor-pointer
+             hover:bg-black/40 transition-colors duration-300 rounded-lg'
+             onClick = {}>
+              +
+            </button>
+          </div>
 
         </div>
 
@@ -70,7 +80,7 @@ const Home = () => {
             cursor-pointer hover:bg-create-join-buttons-hover transition-colors duration-300 ease-in-out'
             onClick={createMeeting}>
             <IoMdAdd size={24} /> 
-            <span className='ml-2'>Create a Meeting</span>
+            <span className='ml-2'>Instant Meeting</span>
           </div>
 
           <div className='bg-create-join-buttons h-1/2 rounded-2xl flex items-center justify-center 
