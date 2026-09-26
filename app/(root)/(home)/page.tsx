@@ -12,16 +12,26 @@ import {useMeetingActions} from "@/hooks/useMeetingActions"
 import ActiveCallBanner from "@/components/ActiveCallBanner"
 import useActiveCalls from "@/hooks/useActiveCalls"
 import { useRouter } from 'next/navigation'
+import ScheduleMeetingModal from "@/components/ScheduleMeetingModal"
+import { useScheduleMeeting } from "@/hooks/useScheduleMeeting"
 
 const Home = () => {
   const firstImgLink = 'https://www.pexels.com/photo/stunning-terraced-rice-fields-in-lush-mountain-valley-28778307/' 
   const secondImgLink = 'https://www.pexels.com/photo/dried-leaves-on-the-ground-14710731/'
 
   // create a list of objects with image link and source later
-
   const [bannerImg] = useState(bannerImgTwo)
   const [bannerImgLink] = useState(secondImgLink)
   const {createMeeting} = useMeetingActions()
+
+  // getting states from useScheduleMeeting hook
+  const {
+        isOpen, setIsOpen,
+        description, setDescription,
+        dateTime, setDateTime,
+        isLoading,
+        scheduleMeeting
+  } = useScheduleMeeting()
 
 
   // fetching active call (created by user) if any
@@ -67,9 +77,20 @@ const Home = () => {
           <div className='absolute bottom-0 mb-2'>
             <button className='bg-black/30 text-amber-50 px-4 py-2 font-bold text-sm cursor-pointer
              hover:bg-black/40 transition-colors duration-300 rounded-lg'
-             onClick = {}>
+             onClick = {() => setIsOpen(true)}>
               +
             </button>
+
+            <ScheduleMeetingModal 
+              isOpen = {isOpen}
+              closeModal = {() => setIsOpen(false)}
+              description = {description}
+              setDescription = {setDescription}
+              dateTime = {dateTime}
+              setDateTime = {setDateTime}
+              isLoading = {isLoading}
+              scheduleMeetingFunction = {scheduleMeeting}
+            />
           </div>
 
         </div>

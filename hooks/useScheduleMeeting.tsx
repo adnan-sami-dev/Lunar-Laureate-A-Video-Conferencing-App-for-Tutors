@@ -1,4 +1,4 @@
-import { Call, useConnectedUser, useStreamVideoClient } from "@stream-io/video-react-sdk"
+import { useConnectedUser, useStreamVideoClient } from "@stream-io/video-react-sdk"
 import { useState } from "react"
 
 export const useScheduleMeeting = () => {
