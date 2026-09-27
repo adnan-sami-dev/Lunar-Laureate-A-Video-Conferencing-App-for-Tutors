@@ -1,5 +1,6 @@
 import { useConnectedUser, useStreamVideoClient } from "@stream-io/video-react-sdk"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 export const useScheduleMeeting = () => {
     const client = useStreamVideoClient()                   // client loads before user attaches
@@ -31,12 +32,17 @@ export const useScheduleMeeting = () => {
                 }
             })
 
+            // SUCCESS TOAST
+            toast.success('Successfully scheduled meeting!')
+
             // RESET THE FORM
             setDateTime('')
             setDescription('')
             setIsOpen(false)
         } catch(err) {
             console.log('Failed to schedule meeting :', err)
+            // ERROR TOAST
+            toast.success('Failed to schedule meeting. Please try again.')
         } finally {
             setIsLoading(false)
         }

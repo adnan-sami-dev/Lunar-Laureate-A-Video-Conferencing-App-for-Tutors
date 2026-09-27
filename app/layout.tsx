@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Intel_One_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "react-hot-toast";
 
 import '@stream-io/video-react-sdk/dist/css/styles.css'
 
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body className="min-h-full flex flex-col">
               <ClerkProvider>
                 {children}
+                <Toaster position='bottom-right' />
               </ClerkProvider>
         </body>
       </html>
