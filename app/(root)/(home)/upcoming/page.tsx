@@ -10,7 +10,10 @@ const Upcoming = () => {
 
   return (
     <section>
-      <h1 className='font-bold text-5xl mb-10 max-sm:text-center'>Upcoming</h1>
+      <h1 className='font-bold text-5xl mb-2 max-sm:text-center'>Upcoming</h1>
+      <p className='text-sm text-primary-text mb-10 max-sm:text-center'> 
+        List of your upcoming calls, as well as calls due for last 30 minutes ... 
+      </p>
 
       {
         isLoading ? (<Loader />)

@@ -10,8 +10,11 @@ export const useUpcomingMeetings = () => {
     const [calls, setCalls] = useState<Call[]>([])      // array for storing list of calls
     const [isLoading, setIsLoading] = useState(true)
 
+    // Calculating 30 minutes ago in ISO format
+    const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
 
-    // GET THE USER ID  
+
+    // GETTING THE USER ID  
     const userId = user?.id
 
     useEffect (() => {
@@ -29,7 +32,7 @@ export const useUpcomingMeetings = () => {
                             { created_by_user_id: userId},
                             { members: {$in: [userId]}}
                         ],
-                        starts_at: { $gt: new Date().toISOString()},
+                        starts_at: { $gt: thirtyMinutesAgo},
                         ended_at: null,
                     },            
                     sort: [{field: 'starts_at', direction: 1}],
