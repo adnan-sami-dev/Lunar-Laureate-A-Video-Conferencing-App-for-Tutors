@@ -14,8 +14,6 @@ export const useUpcomingMeetings = () => {
     // GET THE USER ID  
     const userId = user?.id
 
-    let cancelled = false
-
     useEffect (() => {
         if (!client || !userId) return
 
