@@ -1,4 +1,4 @@
-import { SlCamrecorder } from "react-icons/sl";
+
 import { LuCalendarArrowUp } from "react-icons/lu";
 import { LuCalendarArrowDown } from "react-icons/lu";
 import { IoMdAdd } from "react-icons/io";
@@ -28,11 +28,6 @@ export const sidebarLinks = [
         label: 'Previous',
         icon: LuCalendarArrowUp,
         route: '/previous'
-    },
-    {
-        label: 'Recordings',
-        icon: SlCamrecorder,
-        route: '/recordings'
     },
     {
         label: 'Personal Room',

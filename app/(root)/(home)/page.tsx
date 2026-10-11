@@ -14,10 +14,17 @@ import useActiveCalls from "@/hooks/useActiveCalls"
 import { useRouter } from 'next/navigation'
 import ScheduleMeetingModal from "@/components/ScheduleMeetingModal"
 import { useScheduleMeeting } from "@/hooks/useScheduleMeeting"
+import { useUpcomingMeetings } from "@/hooks/useUpcomingMeetings"
+import Loader from "@/components/Loader"
 
 const Home = () => {
   const firstImgLink = 'https://www.pexels.com/photo/stunning-terraced-rice-fields-in-lush-mountain-valley-28778307/' 
   const secondImgLink = 'https://www.pexels.com/photo/dried-leaves-on-the-ground-14710731/'
+
+  // import any upcoming meetings
+  const { calls, isLoading : isScheduledLoading } = useUpcomingMeetings()
+  const nextScheduledMeeting = calls[0]
+  const startsAt = nextScheduledMeeting?.state.startsAt ? new Date(nextScheduledMeeting.state.startsAt) : null
 
   // create a list of objects with image link and source later
   const [bannerImg] = useState(bannerImgTwo)
@@ -67,11 +74,29 @@ const Home = () => {
           bg-upcoming-meeting-bg h-75 gap-2 ease-in-out'>
 
           {/* Display for Upcoming Meeting, if any */}
-          <span className='text-sm'>Next Meeting at</span>
-          <span className='text-5xl font-bold'>
-            10:15 AM
-          </span>
-          <span className='text-xl font-medium'>Thursday, Aug 25</span>
+          {
+            isScheduledLoading ? (<Loader />)
+            : calls.length === 0? ( <span>No Upcoming Meetings</span>)
+            : (
+              <div className='flex flex-col gap-3 items-center justify-center'>
+                <span className='text-sm'>Next Meeting at</span>
+                <span className='text-2xl text-center font-bold flex flex-col gap-3'>
+                  {startsAt ? (
+                    <> 
+                      <span className="text-5xl">
+                        {startsAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                      <span className="text-primary-text/50">
+                        {startsAt.toLocaleDateString()}
+                      </span>
+                    </>
+                    ) : (
+                      <span>Time not set</span>
+                  )}
+                </span>
+              </div>
+            )
+          }
 
           {/* Schedule a Meeting */}
           <div className='absolute bottom-0 mb-2'>
@@ -113,7 +138,7 @@ const Home = () => {
 
       </div>
 
-      {/* AActive Call Banner */}
+      {/* Active Call Banner */}
       <div>
         {activeCall && <ActiveCallBanner call={activeCall} onJoin={handleJoinCall}/>}
       </div>
